@@ -1,0 +1,122 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-header {
+  width: 100%;
+  background-color: #0f103c;
+  padding: 15px 0;
+  position: sticky; /* Keeps it at the top while scrolling */
+  top: 0;
+  z-index: 1000;
+}
+
+/* Update the container to handle the new grouping */
+.header-container {
+  max-width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* Group on left, Nav on right */
+  align-items: center;
+  padding: 0 10px; /* Reduced padding to move logo further left */
+}
+
+/* NEW: This class keeps the logo and text side-by-side */
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust this to change distance between logo and text */
+}
+
+.logo img {
+  height: 65px;
+  display: block;
+}
+
+.second p {
+  color: white;
+  font-family: sans-serif;
+  font-weight: 500;
+  margin: 0; /* Removed the negative margin entirely */
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Spacing between links */
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 500;
+}
+
+.btn-cta {
+  background-color: #2c1f71; /* Primary Action Color */
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: sans-serif;
+  transition: background 0.3s ease;
+}
+
+.btn-cta:hover {
+  background-color: #0319bc;
+}
+.hero-video {
+  width: 100%;       /* Makes it responsive */
+  max-width: 800px;  /* Limits the size so it doesn't take over the whole screen */
+  border-radius: 10px;
+  display: block;
+  margin: 20px auto; /* Centers the video */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.hero-section {
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: center;      /* Centers vertically */
+  text-align: center;       /* Centers the text lines */
+  background-color: #0f103c; /* Matches your header color */
+  padding: 20px;
+}
+
+.hero-content {
+  max-width: 800px;         /* Prevents text from stretching too wide */
+  color: rgb(255, 255, 255);
+  font-family: sans-serif;
+  background-color: #0f103c;
+}
+
+.hero-title {
+  font-size: 2.5rem;        /* Makes the main heading bold and large */
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.hero-text {
+  font-size: 1.25rem;       /* Slightly larger than standard text */
+  line-height: 1.6;         /* Adds breathing room between lines */
+  color: #ffffff;          /* Softer white to reduce eye strain */
+}
+
+.author {
+      display: block;
+      text-align: center;
+      color: #ffffff;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+}
+
+body {
+  background-color: #0f103c; /* Change this to any color you like */
+  margin: 0;
+  padding: 0;
+}

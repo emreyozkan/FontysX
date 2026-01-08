@@ -1,0 +1,244 @@
+/* --- Basic Settings (Základné nastavenia) --- */
+/* Core Layout: Handles the full-screen immersion and background image */
+body {
+    background-color: #020617;
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    
+    color: white;
+    font-family: 'Arial', sans-serif;
+    
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevents scrolling to keep the map feeling like an app */
+    
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    flex-shrink: 0; 
+}
+
+.main-title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+}
+
+/* --- Map and Layout (Mapa a rozloženie) --- */
+/* The map container allows absolute positioning of nodes using percentages */
+.map-container {
+    position: relative;
+    width: 70vw;       
+    height: 80vh;      
+    margin: auto;      
+    overflow: visible; 
+}
+
+/* Node logic: Defines the layer (z-index) and clickable area for level icons */
+.node {
+    position: absolute;
+    width: 90px;
+    height: 100px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    z-index: 2; /* Keeps icons above the connecting lines */
+}
+
+.node img {
+    width: 100%;
+    transition: filter 0.3s ease;
+}
+
+/* --- Level Coordinates (Súradnice) --- */
+#step1 { top: 5%; left: 10%; }
+#step2 { top: 10%; left: 40%; }
+#step3 { top: 30%; left: 20%; }
+#step4 { top: 19%; left: 65%; }
+#step5 { top: 45%; left: 55%; }
+#step6 { top: 65%; left: 15%; }
+#step7 { top: 70%; left: 65%; }
+
+/* --- Level States (Stavy levelov) --- */
+/* State Styling: Controls visual feedback for Locked, Active, and Completed levels */
+.node.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none; /* Blocks all interactions with locked levels */
+}
+
+.node.active img {
+    filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
+    animation: pulseActive 2s infinite ease-in-out; /* Highlights the current goal */
+}
+
+.node.active:hover {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.node.completed img {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 150, 0.4));
+}
+
+@keyframes pulseActive {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* --- SVG Paths (SVG Čiary) --- */
+/* Path Animation: Uses stroke-dasharray to create a flowing movement effect */
+#map-lines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1; /* Lines are placed behind the node icons */
+}
+
+path {
+    transition: stroke 0.8s ease, stroke-width 0.5s ease;
+    fill: none;
+}
+
+path[stroke-dasharray] {
+    animation: dashMove 20s linear infinite;
+}
+
+@keyframes dashMove {
+    from { stroke-dashoffset: 500; }
+    to { stroke-dashoffset: 0; }
+}
+
+/* --- Modal Overlay & Box (Modálne okno) --- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-box {
+    position: relative; 
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #0f172a;
+    border: 2px solid #00d4ff;
+    border-radius: 15px;
+    padding: 40px 30px 30px 30px; 
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+.close-btn {
+    position: absolute; 
+    top: 15px;          
+    right: 15px;        
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.confirm-btn, #completeBtn {
+    margin-top: 25px;
+    background: #00d4ff; 
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    color: #020617;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+    display: inline-block;
+}
+
+.confirm-btn:hover, #completeBtn:hover {
+    background: #00e5ff;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
+}
+
+.confirm-btn:disabled, #completeBtn:disabled {
+    background: #334155;
+    color: #64748b;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* --- Mission Card Logic (Karta misie) --- */
+/* Mission UI: Mimics a physical teacher's card with input validation fields */
+.mission-card {
+    background: white;
+    color: #1e293b; 
+    padding: 20px;
+    border-radius: 20px;
+    border: 8px solid #2d4059; 
+    text-align: center;
+}
+
+.mission-text {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.9; 
+}
+
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+/* Code Boxes: Specialized small inputs for the teacher's secret code */
+.code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.code-box {
+    width: 30px;
+    border: none;
+    border-bottom: 3px solid #1e293b;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    outline: none;
+}
+
+
+.points-badge {
+    float: right;
+    font-weight: bold;
+    font-style: italic;
+}

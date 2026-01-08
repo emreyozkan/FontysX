@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents accidental side-scrolling */
+}
+
+.top-left-logo {
+  position: absolute;
+  top: 30px;    /* Distance from the top */
+  left: 30px;   /* Distance from the left */
+  z-index: 10;  /* Ensures it stays above the background */
+}
+
+.top-left-logo img {
+  height: 65px; /* Adjust size as needed */
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+/* Optional: Slight hover effect */
+.top-left-logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Ensure the container is ready for absolute children */
+.login-container {
+  position: relative; /* This acts as the anchor for the absolute logo */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #13144c, #0e0f39);
+}
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Replace your gradient with these 4 lines */
+  background-image: url('/images/background.jpg'); /* The path to your image */
+  background-size: cover;      /* Makes sure the image fills the whole screen */
+  background-position: center;  /* Keeps the image centered */
+  background-repeat: no-repeat; /* Prevents the image from tiling */
+  
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+/* The "Glass" Bubble */
+.glass-login-box {
+  background: rgba(128, 124, 151, 0.2); /* Semi-transparent white */
+  backdrop-filter: blur(15px); /* This creates the frosted effect */
+  -webkit-backdrop-filter: blur(15px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  color: white;
+  text-align: center;
+}
+
+h2 { margin-bottom: 10px; font-weight: 600; }
+p { margin-bottom: 30px; font-size: 0.9rem; opacity: 0.8; }
+
+/* Input Styling */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+.input-group input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+/* Button Styling */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  color: #4158D0;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.footer-links {
+  margin-top: 25px;
+  font-size: 0.8rem;
+}
+
+.footer-links a { color: white; text-decoration: none; font-weight: 600; }
+
+/* Add this to your existing CSS to handle the extra height of the register form */
+.glass-login-box {
+    /* ... your existing code ... */
+    max-height: 90vh; /* Prevents the box from being taller than the screen */
+    overflow-y: auto; /* Adds a scrollbar inside the glass if the screen is very small */
+}
+
+/* Optional: Style the scrollbar to keep it looking "glassy" */
+.glass-login-box::-webkit-scrollbar {
+    width: 5px;
+}
+.glass-login-box::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
