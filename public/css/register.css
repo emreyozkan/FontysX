@@ -19,7 +19,7 @@ body {
 }
 
 .top-left-logo img {
-  height: 65px; 
+  height: 75px; 
   width: auto;
   transition: transform 0.3s ease;
 }
