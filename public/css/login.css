@@ -8,30 +8,30 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Prevents accidental side-scrolling */
+  overflow-x: hidden;
 }
 
 .top-left-logo {
   position: absolute;
-  top: 30px;    /* Distance from the top */
-  left: 30px;   /* Distance from the left */
-  z-index: 10;  /* Ensures it stays above the background */
+  top: 30px;
+  left: 30px;
+  z-index: 10;
 }
 
 .top-left-logo img {
-  height: 65px; /* Adjust size as needed */
+  height: 65px;
   width: auto;
   transition: transform 0.3s ease;
 }
 
-/* Optional: Slight hover effect */
+
 .top-left-logo img:hover {
   transform: scale(1.05);
 }
 
-/* Ensure the container is ready for absolute children */
+
 .login-container {
-  position: relative; /* This acts as the anchor for the absolute logo */
+  position: relative;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -44,23 +44,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* Replace your gradient with these 4 lines */
-  background-image: url('/images/background.jpg'); /* The path to your image */
-  background-size: cover;      /* Makes sure the image fills the whole screen */
-  background-position: center;  /* Keeps the image centered */
-  background-repeat: no-repeat; /* Prevents the image from tiling */
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   
   font-family: 'Segoe UI', sans-serif;
   position: relative;
 }
 
-/* The "Glass" Bubble */
 .glass-login-box {
-  background: rgba(128, 124, 151, 0.2); /* Semi-transparent white */
-  backdrop-filter: blur(15px); /* This creates the frosted effect */
-  -webkit-backdrop-filter: blur(15px); /* Safari support */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+  background: rgba(128, 124, 151, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 40px;
   border-radius: 20px;
   width: 100%;
@@ -73,7 +70,6 @@ body {
 h2 { margin-bottom: 10px; font-weight: 600; }
 p { margin-bottom: 30px; font-size: 0.9rem; opacity: 0.8; }
 
-/* Input Styling */
 .input-group {
   text-align: left;
   margin-bottom: 20px;
@@ -97,7 +93,6 @@ p { margin-bottom: 30px; font-size: 0.9rem; opacity: 0.8; }
 
 .input-group input::placeholder { color: rgba(255, 255, 255, 0.6); }
 
-/* Button Styling */
 .login-btn {
   width: 100%;
   padding: 12px;

@@ -1,6 +1,6 @@
-const imgDone = "leveldone.jpg";
-const imgOpen = "levelopen.jpg";
-const imgLock = "levellock.jpg";
+const imgDone = "images/leveldone.jpg";
+const imgOpen = "images/levelopen.jpg";
+const imgLock = "images/levellock.jpg";
 
 let currentLevel = 1;
 const totalLevels = 7;
