@@ -13,7 +13,20 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password cannot be blank"]
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    
+    progress: {
+        type: [String],   
+        default: []
+    },
+    points: {
+        type: Number,
+        default: 0
     }
 });
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema);
