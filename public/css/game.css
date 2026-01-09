@@ -1,5 +1,3 @@
-/* --- Basic Settings (Základné nastavenia) --- */
-/* Core Layout: Handles the full-screen immersion and background image */
 body {
     background-color: #020617;
     background-image: url('/images/background.jpg');
@@ -13,7 +11,7 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* Prevents scrolling to keep the map feeling like an app */
+    overflow: hidden; 
     
     display: flex;
     flex-direction: column;
@@ -33,8 +31,6 @@ header {
     font-size: 1.5rem;
 }
 
-/* --- Map and Layout (Mapa a rozloženie) --- */
-/* The map container allows absolute positioning of nodes using percentages */
 .map-container {
     position: relative;
     width: 70vw;       
@@ -43,7 +39,6 @@ header {
     overflow: visible; 
 }
 
-/* Node logic: Defines the layer (z-index) and clickable area for level icons */
 .node {
     position: absolute;
     width: 90px;
@@ -56,7 +51,7 @@ header {
     justify-content: center;
     align-items: center;
     padding: 0;
-    z-index: 2; /* Keeps icons above the connecting lines */
+    z-index: 2; 
 }
 
 .node img {
@@ -64,7 +59,7 @@ header {
     transition: filter 0.3s ease;
 }
 
-/* --- Level Coordinates (Súradnice) --- */
+
 #step1 { top: 5%; left: 10%; }
 #step2 { top: 10%; left: 40%; }
 #step3 { top: 30%; left: 20%; }
@@ -73,17 +68,16 @@ header {
 #step6 { top: 65%; left: 15%; }
 #step7 { top: 70%; left: 65%; }
 
-/* --- Level States (Stavy levelov) --- */
-/* State Styling: Controls visual feedback for Locked, Active, and Completed levels */
+
 .node.locked {
     opacity: 0.6;
     cursor: not-allowed;
-    pointer-events: none; /* Blocks all interactions with locked levels */
+    pointer-events: none; 
 }
 
 .node.active img {
     filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
-    animation: pulseActive 2s infinite ease-in-out; /* Highlights the current goal */
+    animation: pulseActive 2s infinite ease-in-out; 
 }
 
 .node.active:hover {
@@ -99,14 +93,13 @@ header {
     50% { transform: scale(1.1); }
 }
 
-/* --- SVG Paths (SVG Čiary) --- */
-/* Path Animation: Uses stroke-dasharray to create a flowing movement effect */
+
 #map-lines {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     pointer-events: none;
-    z-index: 1; /* Lines are placed behind the node icons */
+    z-index: 1; 
 }
 
 path {
@@ -123,7 +116,7 @@ path[stroke-dasharray] {
     to { stroke-dashoffset: 0; }
 }
 
-/* --- Modal Overlay & Box (Modálne okno) --- */
+
 .modal-overlay {
     display: none;
     position: fixed;
@@ -187,8 +180,7 @@ path[stroke-dasharray] {
     box-shadow: none;
 }
 
-/* --- Mission Card Logic (Karta misie) --- */
-/* Mission UI: Mimics a physical teacher's card with input validation fields */
+
 .mission-card {
     background: white;
     color: #1e293b; 
@@ -219,7 +211,7 @@ path[stroke-dasharray] {
     margin-bottom: 10px;
 }
 
-/* Code Boxes: Specialized small inputs for the teacher's secret code */
+
 .code-inputs {
     display: flex;
     justify-content: center;
