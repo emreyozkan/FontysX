@@ -8,7 +8,8 @@
 </head>
 <body>
      <header>
-        <div class="user-info">Hey <%= (fullname || "Player").split(' ')[0] %>!</div>
+        <% const firstName = fullname ? fullname.split(" ")[0] : "Player"; %>
+        <div class="user-info">Hey <%= firstName %>!</div>
         <h1 class="main-title">Your CHALLENGE</h1>
         <div class="points">💰 <span id="pointsValue">200</span></div>
     </header>
