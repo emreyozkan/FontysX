@@ -1,22 +1,30 @@
-<link rel="stylesheet" href="/css/login.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - FontysX</title>
+  <link rel="stylesheet" href="/css/login.css">
+</head>
 
+<body>
 <div class="login-container">
   <a href="/" class="top-left-logo">
     <img src="/images/logov4.PNG" alt="Logo">
   </a>
 
-  <form class="glass-login-box">
+  <form class="glass-login-box" action="/login" method="POST">
     <h2>Welcome Back</h2>
     <p>Please enter your details</p>
 
     <div class="input-group">
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
     </div>
 
     <div class="input-group">
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="••••••••" required>
+      <input type="password" id="password" name="password" placeholder="••••••••" required>
     </div>
 
     <button type="submit" class="login-btn">Login</button>
@@ -28,3 +36,5 @@
     </div>
   </form>
 </div>
+</body>
+</html>
