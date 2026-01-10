@@ -3,10 +3,10 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-require("dotenv").config();
 const User = require("./models/User");
 const session = require("express-session");
 const port = 3000;
+require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -58,7 +58,6 @@ app.post("/register", async (req, res) => {
         });
         await user.save();
 
-        // Set session before redirect
         req.session.user_id = user._id;
         req.session.fullname = user.fullname;
         res.redirect("/game");
