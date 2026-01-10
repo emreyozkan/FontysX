@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="/css/game.css">
 </head>
 <body>
+<div id="game-data"
+     data-current-level="<%= currentLevel %>"
+     data-points="<%= points %>"
+     data-progress='<%= JSON.stringify(progress) %>'>
+</div>
      <header>
         <% const firstName = fullname ? fullname.split(" ")[0] : "Player"; %>
         <div class="user-info">Hey <%= firstName %>!</div>
         <h1 class="main-title">Your CHALLENGE</h1>
-        <div class="points">💰 <span id="pointsValue">200</span></div>
+        <div class="points">💰 <span id="pointsValue"><%= points %></span></div>
     </header>
 
     <div class="map-container">

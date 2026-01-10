@@ -2,7 +2,6 @@ const imgDone = "images/leveldone.jpg";
 const imgOpen = "images/levelopen.jpg";
 const imgLock = "images/levellock.jpg";
 
-let currentLevel = 1;
 const totalLevels = 7;
 
 const levelData = {
@@ -15,13 +14,18 @@ const levelData = {
     7: { title: "FINAL MISSION", text: "THE LAST CODE TO WIN THE GAME", correctCode: "7777", points: 20 }
 };
 
+const gameData = document.getElementById("game-data");
+let currentLevel = Number(gameData?.dataset.currentLevel) || 1;
+let points = Number(gameData?.dataset.points) || 0;
+let progress = JSON.parse(gameData?.dataset.progress || "[]");
+
 function updateMap() {
     for (let i = 1; i <= totalLevels; i++) {
         const node = document.getElementById(`step${i}`);
         if (!node) continue;
         const img = node.querySelector("img");
 
-        if (i < currentLevel) {
+        if (progress.includes(`step${i}`)) {
             node.className = "node completed";
             img.src = imgDone;
             node.onclick = () => openModal(i, true);
@@ -60,7 +64,7 @@ function drawLines() {
             const midY = (y1 + y2) / 2 + (i % 2 === 0 ? -20 : 20);
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
             path.setAttribute("d", `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`);
-            if (i < currentLevel) {
+            if (progress.includes(`step${i}`)) {
                 path.setAttribute("stroke", "#00d4ff");
                 path.setAttribute("stroke-width", "5");
                 path.setAttribute("filter", "url(#glow)");
@@ -141,9 +145,25 @@ function validateMission(correctCode) {
 
 function finishLevel(levelNum) {
     if (levelNum === currentLevel) {
-        currentLevel++;
-        closeModal();
-        updateMap();
+        const taskId = `step${levelNum}`;
+        const taskPoints = levelData[levelNum].points;
+
+        fetch("/api/complete-task", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ taskId, points: taskPoints })
+        })
+        .then(res => res.json())
+        .then(data => {
+            points = data.points;
+            progress = data.progress;
+            currentLevel = progress.length + 1;
+            const pointsSpan = document.getElementById("pointsValue");
+            if (pointsSpan) pointsSpan.innerText = points;
+
+            closeModal();
+            updateMap();
+        });
     }
 }
 

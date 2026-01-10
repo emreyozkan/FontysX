@@ -94,11 +94,53 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.get("/game", (req, res) => {
+app.get("/game", async (req, res) => {
     if (!req.session.user_id) {
         return res.redirect("/login");
     }
-    res.render("game", { fullname: req.session.fullname });
+
+    try {
+        const user = await User.findById(req.session.user_id);
+        if (!user) return res.redirect("/login");
+
+        const currentLevel = (user.progress?.length || 0) + 1;
+
+        res.render("game", {
+            fullname: user.fullname,
+            points: user.points || 0,
+            progress: user.progress || [],
+            currentLevel
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+});
+
+app.post("/api/complete-task", async (req, res) => {
+    const { taskId, points } = req.body;
+
+    if (!req.session.user_id) {
+        return res.status(401).send("Unauthorized");
+    }
+
+    try {
+        const user = await User.findById(req.session.user_id);
+        if (!user) {
+            return res.status(401).send("Unauthorized");
+        }
+
+        if (!user.progress.includes(taskId)) {
+            user.progress.push(taskId);
+            user.points += points;
+            await user.save();
+        }
+
+        res.json({ points: user.points, progress: user.progress });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
 });
 
 app.listen(port, () => {
