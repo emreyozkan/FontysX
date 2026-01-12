@@ -1,6 +1,6 @@
-const imgDone = "images/leveldone.jpg";
-const imgOpen = "images/levelopen.jpg";
-const imgLock = "images/levellock.jpg";
+const imgDone = "images/checkmark.png";
+const imgOpen = "images/levelopen1.png";
+const imgLock = "images/levellock4.png";
 
 const totalLevels = 7;
 
@@ -173,3 +173,61 @@ function closeModal() {
 
 window.addEventListener('resize', drawLines);
 updateMap();
+
+window.addEventListener('load', () => {
+    const ufoImage = document.getElementById('ufo-alien');
+    const speechBubble = document.getElementById('speech-bubble');
+
+    // List of random messages in English
+    const messages = [
+        "Greetings, earthling! 👽",
+        "Is there any space pizza here? 🍕",
+        "Your website looks out of this world! ✨",
+        "I come in peace! (mostly) ✌️",
+        "System check: All green! 🟢",
+        "Hi, I'm Exie! Do you have any space snacks? 🍪",
+        "Wait... is this planet Earth or a giant video game? 🎮",
+        "I traveled 5 million light years just to see your website! ✨",
+        "Exie to base: The humans are clicking me again! 🛸",
+        "Error 404: Exie's brain not found. Too much stardust! 🌟",
+        "Is it true you guys have something called 'pizza'? Take me to it! 🍕",
+        "My spaceship is parked in your cache. Don't clear it! 🚗",
+        "I’m not short, I’m just from a high-gravity planet! 🪐",
+        "Earth is cool, but the WiFi in the Milky Way is faster. 📶",
+        "Stop clicking! You're tickling my sensors! 😂"
+        
+    ];
+
+    
+    function showRandomMessage() {
+        
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        speechBubble.innerText = messages[randomIndex];
+
+        speechBubble.classList.add('show');
+
+        // Hide it in 5 sec
+        setTimeout(() => {
+            speechBubble.classList.remove('show');
+        }, 5000);
+    }
+
+    if (ufoImage && speechBubble) {
+        
+                    
+        ufoImage.addEventListener('click', () => {
+            console.log("Exie clicked!");
+            showRandomMessage(); // Táto funkcia už v sebe má automatické skrytie po 5s
+        });
+
+        
+        setInterval(() => {
+            console.log("Automatic alien message triggered.");
+            showRandomMessage();
+        }, 15000); 
+
+    } else {
+        console.error("Error: Make sure you have id='ufo-alien' and id='speech-bubble' in your HTML!");
+    }
+    
+});
