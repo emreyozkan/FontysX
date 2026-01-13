@@ -25,14 +25,11 @@ body {
 }
 
 .leaderboard-card {
-    background: rgba(128, 124, 151, 0.2);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: #252a5d; 
     width: 600px;
     padding: 40px;
     border-radius: 40px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     text-align: center;
 }
 
@@ -91,7 +88,7 @@ ul {
     box-shadow: 0 0 15px rgba(14, 4, 110, 0.5);
     transform: translateY(-2px);
 }
-/* --- Footer Layout --- */
+
 .footer {
     position: fixed;
     bottom: 20px;
@@ -105,10 +102,10 @@ ul {
 }
 
 .ufo-container, .logout-button {
-    pointer-events: auto; /* Povolí klikanie na tlačidlo a UFO */
+    pointer-events: auto; 
 }
 
-/* Toto je kľúčový obal pre UFO a bublinu */
+
 .ufo-container {
     position: relative; 
     display: flex;
@@ -127,10 +124,10 @@ ul {
     transform: translateY(-5px) scale(1.05);
 }
 
-/* --- Bublina --- */
+
 .bubble {
     position: absolute;
-    bottom: 140px; /* Upravená výška nad UFO */
+    bottom: 140px; 
     left: 50%;
     transform: translateX(-50%); 
     
@@ -141,7 +138,7 @@ ul {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     min-width: 180px;
-    max-width: 250px; /* Ochrana proti príliš dlhému textu */
+    max-width: 250px; 
     text-align: center;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
     
@@ -149,7 +146,7 @@ ul {
     opacity: 0;   
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 100;
-    pointer-events: none; /* Bublina neprekáža v klikaní na UFO */
+    pointer-events: none; 
 }
 
 .bubble::after {
