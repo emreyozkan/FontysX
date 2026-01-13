@@ -101,23 +101,41 @@ app.post("/login", async (req, res) => {
 
     try {
         const user = await User.findOne({ email });
+        
+        // Check if user exists
         if (!user) {
-            return res.status(400).send("Invalid email or password");
-        }
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).send("Invalid email or password");
+            return res.status(400).json({ success: false, message: "Invalid email or password" });
         }
 
+        const isMatch = await bcrypt.compare(password, user.password);
+<<<<<<< HEAD
+=======
+        
+        // Handle teacher role update if needed
+        if (user.email.endsWith("@fontys.nl") && user.role !== "teacher") {
+            user.role = "teacher";
+            await user.save();
+        }
+
+        // Check password match
+>>>>>>> 2d6d33d1616ada6ca74e7c480482397fbab58644
+        if (!isMatch) {
+            return res.status(400).json({ success: false, message: "Invalid email or password" });
+        }
+
+        // Set session data
         req.session.user_id = user._id;
         req.session.fullname = user.fullname;
         req.session.role = user.role;
-        if (user.role === "teacher") {
-            return res.redirect("/teacher");
-        }
-        res.redirect("/game");
+
+        // SUCCESS: Tell the JavaScript where to go
+        // Instead of redirecting here, we send the URL as data
+        const redirectUrl = user.role === "teacher" ? "/teacher" : "/game";
+        res.json({ success: true, redirectUrl: redirectUrl });
+
     } catch (err) {
-        res.status(500).send(err.message);
+        console.error(err);
+        res.status(500).json({ success: false, message: "Server error. Please try again later." });
     }
 });
 

@@ -379,5 +379,27 @@ path[stroke-dasharray] {
 
 
 
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 35px; 
+  box-sizing: border-box; 
+}
 
+.image-button {
+  background: none;    
+  border: none;        
+  padding: 0;          
+  cursor: pointer;     
+  transition: transform 0.2s; 
+}
 
+.image-button:hover img {
+  transform: scale(1.1);
+}
+
+.image-button img {
+  width: 53px;        
+  display: block;    
+}

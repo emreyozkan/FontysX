@@ -13,27 +13,32 @@
     <img src="/images/logov3.PNG" alt="Logo">
   </a>
 
-  <form class="glass-login-box" action="/login" method="POST">
-    <h2>Welcome Back</h2>
-    <p>Please enter your details</p>
+  <form class="glass-login-box" id="loginForm"> 
+  <h2>Welcome Back</h2>
+  <p>Please enter your details</p>
 
-    <div class="input-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
-    </div>
+  <div id="error-message" style="color: #ff4d4d; font-size: 0.9rem; margin-bottom: 15px; display: none; text-align: center; font-weight: bold;">
+    Invalid email or password.
+  </div>
 
-    <div class="input-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="••••••••" required>
-    </div>
+  <div class="input-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+  </div>
 
-    <button type="submit" class="login-btn">Login</button>
-    
-    <div class="footer-links">
-      <br/><span>Don't have an account? <a href="/register">Sign Up</a></span>
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="••••••••" required>
+  </div>
+
+  <button type="submit" class="login-btn">Login</button>
+  
+  <div class="footer-links">
+    <br/><span>Don't have an account? <a href="/register">Sign Up</a></span>
     <br/><span> back to homepage? <a href="/">Home</a></span>
-    </div>
-  </form>
+  </div>
+</form>
 </div>
+<script src="/js/login.js"></script>
 </body>
 </html>
