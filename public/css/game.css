@@ -2,7 +2,7 @@
 /* Core Layout: Handles the full-screen immersion and background image */
 body {
     background-color: #020617;
-    background-image: url('/images/background.jpg');
+    background-image: url('image/background2.jpg');
     background-size: cover;
     background-position: center;
     
@@ -31,6 +31,9 @@ header {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 1.5rem;
+    position: absolute;
+    
+    left: 40%;
 }
 
 /* --- Map and Layout (Mapa a rozloženie) --- */
@@ -272,30 +275,6 @@ path[stroke-dasharray] {
     align-items: center;
     gap: 10px;
 }
-
-.footer {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%); 
-    width: 95%; 
-    display: flex;
-    justify-content: space-between; 
-    align-items: flex-end;
-    pointer-events: none; 
-}
-
-
-.ufo-icon, .logout-button {
-    pointer-events: auto;
-}
-
-.ufo-icon {
-    width: 180px;
-    height: auto;
-    
-}
-
 .logout-button {
     background: rgba(93, 75, 255, 0.2); 
     border: 1px solid #085af1;
@@ -314,44 +293,79 @@ path[stroke-dasharray] {
 }
 
 
+.footer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 95%; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-end;
+    pointer-events: none; 
+}
+
+.ufo-container, .logout-button {
+    pointer-events: auto; 
+}
 
 
+.ufo-container {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ufo-icon {
+    width: 180px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.ufo-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+}
 
 
 .bubble {
-  position: fixed;
-    bottom: 140px;
-    left: 94%;
-    display: flex;
-  transform: translateX(-50%);
-  background-color: #1752e5; 
-  color: rgb(21, 255, 0);
-  padding: 15px;
-  border-radius: 20px;
-  font-family: 'Arial', sans-serif;
-  font-weight: bold;
-  min-width: 120px;
-  text-align: center;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-  visibility: hidden; 
-  opacity: 0;   
-  transition: opacity 0.3s ease;
+    position: absolute;
+    bottom: 140px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    
+    background-color: #1752e5; 
+    color: rgb(21, 255, 0);
+    padding: 15px;
+    border-radius: 20px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    min-width: 180px;
+    max-width: 250px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+    
+    visibility: hidden; 
+    opacity: 0;   
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+    pointer-events: none; 
 }
 
-
 .bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #5992c4;
+    content: '';
+    position: absolute;
+    bottom: -10px; 
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #1752e5; 
 }
 
 .bubble.show {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
 }
-
