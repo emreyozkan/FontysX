@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 const imgDone = "/images/checkmark.png";
 const imgOpen = "/images/levelopen1.png";
 const imgLock = "/images/levellock4.png";
-=======
-const imgDone = "images/check.png";
-const imgOpen = "images/levelopen2.png";
-const imgLock = "images/levellock1.png";
->>>>>>> 2d6d33d1616ada6ca74e7c480482397fbab58644
 
 const totalLevels = 7;
 
