@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     points: {
         type: Number,
         default: 0
+    },
+    role: {
+        type: String,
+        enum: ["student", "teacher"],
+        default: "student"
     }
 });
 

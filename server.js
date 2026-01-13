@@ -42,6 +42,9 @@ app.get("/register", (req, res) => {
     res.render("register");
 });
 app.get("/teacher", (req, res) => {
+    if (!req.session.user_id || req.session.role !== "teacher") {
+        return res.status(403).send("Access denied");
+    }
     res.render("teacher");
 });
 
@@ -61,16 +64,19 @@ app.post("/register", async (req, res) => {
     }
 
     try {
+        const role = email.endsWith("@fontys.nl") ? "teacher" : "student";
         const hash = await bcrypt.hash(password, 12);
         const user = new User({
             fullname,
             email,
-            password: hash
+            password: hash,
+            role
         });
         await user.save();
 
         req.session.user_id = user._id;
         req.session.fullname = user.fullname;
+        req.session.role = user.role;
         res.redirect("/game");
     } catch (err) {
         if (err.code === 11000) {
@@ -93,12 +99,20 @@ app.post("/login", async (req, res) => {
             return res.status(400).send("Invalid email or password");
         }
         const isMatch = await bcrypt.compare(password, user.password);
+        if (user.email.endsWith("@fontys.nl") && user.role !== "teacher") {
+            user.role = "teacher";
+            await user.save();
+        }
         if (!isMatch) {
             return res.status(400).send("Invalid email or password");
         }
 
         req.session.user_id = user._id;
         req.session.fullname = user.fullname;
+        req.session.role = user.role;
+        if (user.role === "teacher") {
+            return res.redirect("/teacher");
+        }
         res.redirect("/game");
     } catch (err) {
         res.status(500).send(err.message);
@@ -116,10 +130,14 @@ app.get("/game", async (req, res) => {
 
         const currentLevel = (user.progress?.length || 0) + 1;
 
+        // Hide points and progress for teachers
+        const displayPoints = user.role === "teacher" ? undefined : user.points || 0;
+        const displayProgress = user.role === "teacher" ? undefined : user.progress || [];
+
         res.render("game", {
             fullname: user.fullname,
-            points: user.points || 0,
-            progress: user.progress || [],
+            points: displayPoints,
+            progress: displayProgress,
             currentLevel
         });
     } catch (err) {
