@@ -2,7 +2,7 @@
 /* Core Layout: Handles the full-screen immersion and background image */
 body {
     background-color: #020617;
-    background-image: url('/images/background.jpg');
+    background-image: url('image/background2.jpg');
     background-size: cover;
     background-position: center;
     
@@ -102,7 +102,7 @@ header {
     50% { transform: scale(1.1); }
 }
 
-/* --- SVG Paths (SVG Čiary) --- */
+/* --- SVG Paths --- */
 /* Path Animation: Uses stroke-dasharray to create a flowing movement effect */
 #map-lines {
     position: absolute;
