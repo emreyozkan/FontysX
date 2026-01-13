@@ -1,12 +1,23 @@
-let students = [
-    { name: "Daniel", score: 2000 },
-    { name: "Emre", score: 1580 },
-    { name: "Zay", score: 1499 },
-    { name: "Luuk", score: 1000 },
-    { name: "Marianna", score: 900 }
-];
+let students = [];
 
 const scoreList = document.getElementById('score-list');
+
+async function loadLeaderboard() {
+    try {
+        const res = await fetch("/api/leaderboard");
+        const data = await res.json();
+
+        // Backend format: { fullname, points }
+        students = data.map(user => ({
+            name: user.fullname,
+            score: user.points
+        }));
+
+        renderLeaderboard();
+    } catch (err) {
+        console.error("Failed to load leaderboard:", err);
+    }
+}
 
 
 function renderLeaderboard() {
@@ -36,7 +47,7 @@ function addPoints(studentName, points) {
 }
 
 
-renderLeaderboard();
+loadLeaderboard();
 
 
 

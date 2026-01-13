@@ -154,6 +154,20 @@ app.post("/api/complete-task", async (req, res) => {
     }
 });
 
+app.get("/api/leaderboard", async (req, res) => {
+    try {
+        const users = await User.find(
+            {},
+            { fullname: 1, points: 1, _id: 0 }
+        ).sort({ points: -1 });
+
+        res.json(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`)
 })
