@@ -43,7 +43,7 @@ app.get("/register", (req, res) => {
 });
 app.get("/teacher", (req, res) => {
     if (!req.session.user_id || req.session.role !== "teacher") {
-        return res.status(403).send("Access denied");
+        return res.redirect("/");
     }
     res.render("teacher");
 });
@@ -54,7 +54,7 @@ app.get("/highscore", (req, res) => {
 
 app.get("/code", (req, res) => {
     if (!req.session.user_id || req.session.role !== "teacher") {
-        return res.status(403).send("Access denied");
+        return res.redirect("/");
     }
     res.render("code");
 });
