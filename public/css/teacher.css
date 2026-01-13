@@ -133,7 +133,6 @@ ul {
     bottom: 140px; 
     left: 50%;
     transform: translateX(-50%); 
-    
     background: rgba(110, 107, 127, 0.2);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
