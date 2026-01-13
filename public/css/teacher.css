@@ -134,9 +134,12 @@ ul {
     left: 50%;
     transform: translateX(-50%); 
     
-    background-color: #1752e5; 
-    color: rgb(21, 255, 0);
+    background: rgba(110, 107, 127, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: rgb(253, 253, 253);
     padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
@@ -151,7 +154,6 @@ ul {
     z-index: 100;
     pointer-events: none; 
 }
-
 .bubble::after {
     content: '';
     position: absolute;
@@ -160,7 +162,7 @@ ul {
     transform: translateX(-50%);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid #1752e5; 
+    border-top: 10px solid #65708b; 
 }
 
 .bubble.show {

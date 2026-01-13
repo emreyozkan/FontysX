@@ -15,7 +15,12 @@ body {
     color: white;
     overflow: hidden; 
 }
-
+.title {
+    margin-top: 0;         /* Removes default browser margin */
+    margin-bottom: 60px;  /* Adjust this value to increase/decrease the space */
+    font-size: 2.5rem;
+    font-weight: bold;
+}
 
 .card-container {
     background: rgba(128, 124, 151, 0.2);
@@ -23,6 +28,7 @@ body {
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: 600px;
+    height: 450px;
     padding: 40px;
     border-radius: 40px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -33,7 +39,7 @@ body {
 .code-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
-    gap: 30px;
+    gap: 120px 30px;
     margin-top: 30px;
     transition: all 0.5s ease; 
 }
@@ -138,9 +144,12 @@ body {
     left: 50%;
     transform: translateX(-50%); 
     
-    background-color: #1752e5; 
-    color: rgb(21, 255, 0);
+    background: rgba(110, 107, 127, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: rgb(253, 253, 253);
     padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
@@ -164,7 +173,7 @@ body {
     transform: translateX(-50%);
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid #1752e5; 
+    border-top: 10px solid #65708b; 
 }
 
 .bubble.show {
