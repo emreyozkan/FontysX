@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,16 +12,12 @@
      data-points="<%= points %>"
      data-progress='<%= JSON.stringify(progress) %>'>
 </div>
-    
-    <header>  
-
-    <img src="/images/logov3.PNG">
-
-    <h1 class="main-title">Your CHALLENGE</h1>
-        
+     <header>
+        <% const firstName = fullname ? fullname.split(" ")[0] : "Player"; %>
+        <div class="user-info">Hey <%= firstName %>!</div>
+        <h1 class="main-title">Your CHALLENGE</h1>
         <div class="points">💰 <span id="pointsValue"><%= points %></span></div>
-    
-</header>
+    </header>
 
     <div class="map-container">
 
@@ -52,7 +47,7 @@
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 id="modalTitle">Title</h2>
             <div class="modal-body">
-                <p id="modalText">What is inside</p>
+                <p id="modalText">Task content...</p>
             </div>
             <div id="modalFooter">
                 <button class="confirm-btn" id="completeBtn">Next Challenge</button>
@@ -60,22 +55,19 @@
         </div>
     </div>
 
- 
-
-
 <div class="footer">
     <button id="logoutBtn" class="logout-button">
         <span style="margin-right: 5px;">←</span> LOG OUT
     </button>
     
-    <div class="ufo-container">
-        <div id="speech-bubble" class="bubble">Hello Groundling! 👽</div>
-        <img src="/images/UFO1.png" alt="UFO Icon" class="ufo-icon" id="ufo-alien">
-    </div>
+    <img src="images/UFO1.png" alt="UFO Icon" class="ufo-icon" id="ufo-alien">
+    
+    <div id="speech-bubble" class="bubble">
+    Hello Groundling! 👽
 </div>
 
-      <script src="/js/game.js"></script>
+
+
+    <script src="/js/game.js"></script>
 </body>
-    </html>
-    
-    <!-- This in the end of the new think  -->
+</html>

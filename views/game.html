@@ -20,12 +20,12 @@
     <header>  
 
     <img src ="image/logov3.PNG">
-
-    <h1 class="main-title">Your CHALLENGE</h1>
-        
+ 
+        <% const firstName = fullname ? fullname.split(" ")[0] : "Player"; %>
+        <div class="user-info">Hey <%= firstName %>!</div>
+        <h1 class="main-title">Your CHALLENGE</h1>
         <div class="points">💰 <span id="pointsValue"><%= points %></span></div>
-    
-</header>
+    </header>
 
     <div class="map-container">
 

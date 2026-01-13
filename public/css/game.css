@@ -2,11 +2,11 @@
 /* Core Layout: Handles the full-screen immersion and background image */
 body {
     background-color: #020617;
-    background-image: url('images/background.jpg');
+    background-image: url('/images/background.jpg');
     background-size: cover;
     background-position: center;
     
-    color: white;
+    color: white; 
     font-family: 'Arial', sans-serif;
     
     margin: 0;
