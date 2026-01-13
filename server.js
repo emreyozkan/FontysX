@@ -108,17 +108,6 @@ app.post("/login", async (req, res) => {
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
-<<<<<<< HEAD
-=======
-        
-        // Handle teacher role update if needed
-        if (user.email.endsWith("@fontys.nl") && user.role !== "teacher") {
-            user.role = "teacher";
-            await user.save();
-        }
-
-        // Check password match
->>>>>>> 2d6d33d1616ada6ca74e7c480482397fbab58644
         if (!isMatch) {
             return res.status(400).json({ success: false, message: "Invalid email or password" });
         }
