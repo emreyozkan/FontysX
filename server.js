@@ -77,6 +77,9 @@ app.post("/register", async (req, res) => {
         req.session.user_id = user._id;
         req.session.fullname = user.fullname;
         req.session.role = user.role;
+        if (user.role === "teacher") {
+            return res.redirect("/teacher");
+        }
         res.redirect("/game");
     } catch (err) {
         if (err.code === 11000) {
@@ -174,8 +177,9 @@ app.post("/api/complete-task", async (req, res) => {
 
 app.get("/api/leaderboard", async (req, res) => {
     try {
+        // Only include users with role "student"
         const users = await User.find(
-            {},
+            { role: "student" },
             { fullname: 1, points: 1, _id: 0 }
         ).sort({ points: -1 });
 
