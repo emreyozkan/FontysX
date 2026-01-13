@@ -3,25 +3,27 @@
      
     
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
-    <link rel="stylesheet" href="game.css">
+    <title>FontysX</title>
+    <link rel="stylesheet" href="/css/game.css">
 </head>
 <body>
-
+<div id="game-data"
+     data-current-level="<%= currentLevel %>"
+     data-points="<%= points %>"
+     data-progress='<%= JSON.stringify(progress) %>'>
+</div>
     
     <header>  
 
     <img src ="image/logov3.PNG">
 
     <h1 class="main-title">Your CHALLENGE</h1>
-
-    <div class="stats-container">
-        <div class="points">💰 <span id="pointsValue">200</span></div>
-    </div>
+        
+        <div class="points">💰 <span id="pointsValue"><%= points %></span></div>
     
 </header>
 
@@ -75,8 +77,81 @@
     </div>
 </div>
 
-      <script src="game.js"></script>
+      <script src="/js/game.js"></script>
 </body>
     </html>
     
     <!-- This in the end of the new think  -->
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FontysX</title>
+    <link rel="stylesheet" href="/css/game.css">
+</head>
+<body>
+<div id="game-data"
+     data-current-level="<%= currentLevel %>"
+     data-points="<%= points %>"
+     data-progress='<%= JSON.stringify(progress) %>'>
+</div>
+     <header>
+        <% const firstName = fullname ? fullname.split(" ")[0] : "Player"; %>
+        <div class="user-info">Hey <%= firstName %>!</div>
+        <h1 class="main-title">Your CHALLENGE</h1>
+        <div class="points">💰 <span id="pointsValue"><%= points %></span></div>
+    </header>
+
+    <div class="map-container">
+
+        <svg id="map-lines" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+        <defs>
+            <filter id="glow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+        </svg>
+
+    <button id="step1" class="node"><img></button>
+    <button id="step2" class="node"><img></button>
+    <button id="step3" class="node"><img></button>
+    <button id="step4" class="node"><img></button>
+    <button id="step5" class="node"><img></button>
+    <button id="step6" class="node"><img></button>
+    <button id="step7" class="node reward"><img></button>
+</div>
+
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Title</h2>
+            <div class="modal-body">
+                <p id="modalText">Task content...</p>
+            </div>
+            <div id="modalFooter">
+                <button class="confirm-btn" id="completeBtn">Next Challenge</button>
+            </div>
+        </div>
+    </div>
+
+<div class="footer">
+    <button id="logoutBtn" class="logout-button">
+        <span style="margin-right: 5px;">←</span> LOG OUT
+    </button>
+    
+    <img src="images/UFO1.png" alt="UFO Icon" class="ufo-icon" id="ufo-alien">
+    
+    <div id="speech-bubble" class="bubble">
+    Hello Groundling! 👽
+</div>
+
+
+
+    <script src="/js/game.js"></script>
+</body>
+</html>
