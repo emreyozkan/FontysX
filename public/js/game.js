@@ -25,7 +25,7 @@ function updateMap() {
         if (!node) continue;
         const img = node.querySelector("img");
 
-        if (progress.includes(`step${i}`)) {
+         if (progress.includes(`step${i}`)) {
             node.className = "node completed";
             img.src = imgDone;
             node.onclick = () => openModal(i, true);
@@ -64,7 +64,7 @@ function drawLines() {
             const midY = (y1 + y2) / 2 + (i % 2 === 0 ? -20 : 20);
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
             path.setAttribute("d", `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`);
-            if (progress.includes(`step${i}`)) {
+             if (progress.includes(`step${i}`)) {
                 path.setAttribute("stroke", "#00d4ff");
                 path.setAttribute("stroke-width", "5");
                 path.setAttribute("filter", "url(#glow)");
@@ -174,11 +174,12 @@ function closeModal() {
 window.addEventListener('resize', drawLines);
 updateMap();
 
+
+
 window.addEventListener('load', () => {
     const ufoImage = document.getElementById('ufo-alien');
     const speechBubble = document.getElementById('speech-bubble');
 
-    // List of random messages in English
     const messages = [
         "Greetings, earthling! 👽",
         "Is there any space pizza here? 🍕",
@@ -191,43 +192,49 @@ window.addEventListener('load', () => {
         "Exie to base: The humans are clicking me again! 🛸",
         "Error 404: Exie's brain not found. Too much stardust! 🌟",
         "Is it true you guys have something called 'pizza'? Take me to it! 🍕",
-        "My spaceship is parked in your cache. Don't clear it! 🚗",
         "I’m not short, I’m just from a high-gravity planet! 🪐",
         "Earth is cool, but the WiFi in the Milky Way is faster. 📶",
         "Stop clicking! You're tickling my sensors! 😂"
-        
     ];
 
-    
-    function showRandomMessage() {
-        
-        const randomIndex = Math.floor(Math.random() * messages.length);
-        speechBubble.innerText = messages[randomIndex];
-
+    let autoTalkInterval;
+    let firstClickDone = false; 
+  
+    function showMessage(text, autoHide = true) {
+        speechBubble.innerText = text || messages[Math.floor(Math.random() * messages.length)];
         speechBubble.classList.add('show');
 
-        // Hide it in 5 sec
-        setTimeout(() => {
-            speechBubble.classList.remove('show');
-        }, 5000);
+        if (window.bubbleTimeout) clearTimeout(window.bubbleTimeout);
+
+       
+        if (autoHide) {
+            window.bubbleTimeout = setTimeout(() => {
+                speechBubble.classList.remove('show');
+            }, 5000);
+        }
+    }
+
+
+    if (speechBubble) {
+        showMessage("Hi, I'm Exie! Are you ready for your challenge? Click me to start ! 🛸", false);
     }
 
     if (ufoImage && speechBubble) {
-        
-                    
         ufoImage.addEventListener('click', () => {
-            console.log("Exie clicked!");
-            showRandomMessage(); // Táto funkcia už v sebe má automatické skrytie po 5s
+            
+            
+            if (!firstClickDone) {
+                firstClickDone = true;
+                console.log("Mission started by first click!");
+                
+               
+                autoTalkInterval = setInterval(() => {
+                    showMessage(); 
+                }, 15000);
+            }
+
+           
+            showMessage();
         });
-
-        
-        setInterval(() => {
-            console.log("Automatic alien message triggered.");
-            showRandomMessage();
-        }, 15000); 
-
-    } else {
-        console.error("Error: Make sure you have id='ufo-alien' and id='speech-bubble' in your HTML!");
     }
-    
 });
