@@ -1,17 +1,17 @@
-const imgDone = "images/checkmark.png";
-const imgOpen = "images/levelopen1.png";
-const imgLock = "images/levellock4.png";
+const imgDone = "/images/checkmark.png";
+const imgOpen = "/images/levelopen1.png";
+const imgLock = "/images/levellock4.png";
 
 const totalLevels = 7;
 
 const levelData = {
-    1: { title: "MISSION 1", text: "ASK TEACHER FOR THE FIRST CODE", correctCode: "1111", points: 10 },
-    2: { title: "MISSION 2", text: "ASK TEACHER ......... FOR ONE STUDY TIP!", correctCode: "2222", points: 10 },
-    3: { title: "MISSION 3", text: "FIND THE TEACHER NEAR THE LIBRARY", correctCode: "3333", points: 10 },
-    4: { title: "MISSION 4", text: "GET THE CODE FROM YOUR MATH TEACHER", correctCode: "4444", points: 10 },
-    5: { title: "MISSION 5", text: "ASK FOR A CODE IN THE CAFETERIA", correctCode: "5555", points: 10 },
-    6: { title: "MISSION 6", text: "SECRET CODE MISSION", correctCode: "6666", points: 10 },
-    7: { title: "FINAL MISSION", text: "THE LAST CODE TO WIN THE GAME", correctCode: "7777", points: 20 }
+    1: { title: "MISSION 1", text: "ASK TEACHER FOR THE FIRST CODE", points: 10 },
+    2: { title: "MISSION 2", text: "ASK TEACHER ......... FOR ONE STUDY TIP!", points: 10 },
+    3: { title: "MISSION 3", text: "FIND THE TEACHER NEAR THE LIBRARY", points: 10 },
+    4: { title: "MISSION 4", text: "GET THE CODE FROM YOUR MATH TEACHER", points: 10 },
+    5: { title: "MISSION 5", text: "ASK FOR A CODE IN THE CAFETERIA", points: 10 },
+    6: { title: "MISSION 6", text: "SECRET CODE MISSION", points: 10 },
+    7: { title: "FINAL MISSION", text: "THE LAST CODE TO WIN THE GAME", points: 20 }
 };
 
 const gameData = document.getElementById("game-data");
@@ -20,22 +20,23 @@ let points = Number(gameData?.dataset.points) || 0;
 let progress = JSON.parse(gameData?.dataset.progress || "[]");
 
 function updateMap() {
+    progress = progress.map(Number);
     for (let i = 1; i <= totalLevels; i++) {
         const node = document.getElementById(`step${i}`);
         if (!node) continue;
         const img = node.querySelector("img");
 
-         if (progress.includes(`step${i}`)) {
+        if (progress.includes(i)) {
             node.className = "node completed";
-            img.src = imgDone;
+            if (img) img.src = imgDone;
             node.onclick = () => openModal(i, true);
         } else if (i === currentLevel) {
             node.className = "node active";
-            img.src = imgOpen;
+            if (img) img.src = imgOpen;
             node.onclick = () => openModal(i, false);
         } else {
             node.className = "node locked";
-            img.src = imgLock;
+            if (img) img.src = imgLock;
             node.onclick = null;
         }
     }
@@ -64,7 +65,7 @@ function drawLines() {
             const midY = (y1 + y2) / 2 + (i % 2 === 0 ? -20 : 20);
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
             path.setAttribute("d", `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`);
-             if (progress.includes(`step${i}`)) {
+             if (progress.includes(i)) {
                 path.setAttribute("stroke", "#00d4ff");
                 path.setAttribute("stroke-width", "5");
                 path.setAttribute("filter", "url(#glow)");
@@ -91,7 +92,7 @@ function openModal(levelNum, isCompleted) {
         btn.style.display = "none";
     } else {
         btn.style.display = "inline-block";
-        btn.disabled = true;
+        btn.disabled = false;
 
         modalBody.innerHTML = `
             <div class="mission-card">
@@ -114,8 +115,8 @@ function openModal(levelNum, isCompleted) {
         const inputs = modalBody.querySelectorAll('.code-box');
         inputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.toUpperCase(); // force uppercase while typing
                 if (e.target.value && index < inputs.length - 1) inputs[index + 1].focus();
-                validateMission(data.correctCode);
             });
             input.addEventListener('keydown', (e) => {
                 if (e.key === "Backspace" && !e.target.value && index > 0) inputs[index - 1].focus();
@@ -126,45 +127,51 @@ function openModal(levelNum, isCompleted) {
     modal.style.display = 'block';
 }
 
-function validateMission(correctCode) {
-    const c1 = document.getElementById('c1').value;
-    const c2 = document.getElementById('c2').value;
-    const c3 = document.getElementById('c3').value;
-    const c4 = document.getElementById('c4').value;
-    const enteredCode = c1 + c2 + c3 + c4;
-    const btn = document.getElementById('completeBtn');
-
-    if (enteredCode === correctCode) {
-        btn.disabled = false;
-        document.querySelectorAll('.code-box').forEach(el => el.style.borderBottomColor = "#00ff96");
-    } else {
-        btn.disabled = true;
-        document.querySelectorAll('.code-box').forEach(el => el.style.borderBottomColor = "#1e293b");
-    }
-}
-
 function finishLevel(levelNum) {
-    if (levelNum === currentLevel) {
-        const taskId = `step${levelNum}`;
-        const taskPoints = levelData[levelNum].points;
+    const c1 = document.getElementById('c1')?.value || '';
+    const c2 = document.getElementById('c2')?.value || '';
+    const c3 = document.getElementById('c3')?.value || '';
+    const c4 = document.getElementById('c4')?.value || '';
+    // Sanitize: uppercase & alphanumeric only
+    let enteredCode = (c1 + c2 + c3 + c4)
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, "");
 
-        fetch("/api/complete-task", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ taskId, points: taskPoints })
+    fetch("/api/submit-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            submittedCode: enteredCode,
+            currentLevel: levelNum
         })
-        .then(res => res.json())
-        .then(data => {
+    })
+    .then(res => {
+        if (!res.ok) {
+            if (res.status === 400) {
+                return res.json().then(data => { throw new Error(data.message || "Invalid code!"); });
+            } else {
+                throw new Error("Server error. Please try again later.");
+            }
+        }
+        return res.json();
+    })
+    .then(data => {
+        if (data.success) {
             points = data.points;
-            progress = data.progress;
-            currentLevel = progress.length + 1;
+            progress = data.progress.map(Number);
+            currentLevel = Math.max(...progress) + 1;
             const pointsSpan = document.getElementById("pointsValue");
             if (pointsSpan) pointsSpan.innerText = points;
 
             closeModal();
             updateMap();
-        });
-    }
+        } else {
+            alert(data.message || "Invalid code!");
+        }
+    })
+    .catch((error) => {
+        alert(error.message);
+    });
 }
 
 function closeModal() {

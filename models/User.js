@@ -31,6 +31,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["student", "teacher"],
         default: "student"
+    },
+    currentCode: {
+        code: {
+            type: String,
+            default: null
+        },
+        level: {
+            type: String,
+            default: null
+        }
     }
 });
 

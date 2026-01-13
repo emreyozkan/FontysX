@@ -53,6 +53,9 @@ app.get("/highscore", (req, res) => {
 });
 
 app.get("/code", (req, res) => {
+    if (!req.session.user_id || req.session.role !== "teacher") {
+        return res.status(403).send("Access denied");
+    }
     res.render("code");
 });
 
@@ -102,10 +105,6 @@ app.post("/login", async (req, res) => {
             return res.status(400).send("Invalid email or password");
         }
         const isMatch = await bcrypt.compare(password, user.password);
-        if (user.email.endsWith("@fontys.nl") && user.role !== "teacher") {
-            user.role = "teacher";
-            await user.save();
-        }
         if (!isMatch) {
             return res.status(400).send("Invalid email or password");
         }
@@ -162,9 +161,10 @@ app.post("/api/complete-task", async (req, res) => {
             return res.status(401).send("Unauthorized");
         }
 
-        if (!user.progress.includes(taskId)) {
-            user.progress.push(taskId);
-            user.points += points;
+        if (!user.progress.includes(Number(taskId))) {
+            user.progress.push(Number(taskId));
+            user.points += Number(points || 0);
+            user.progress.sort((a, b) => a - b);
             await user.save();
         }
 
@@ -187,6 +187,101 @@ app.get("/api/leaderboard", async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send("Server error");
+    }
+});
+
+// Teachers assign a code and level to a student
+app.post("/api/apply-code", async (req, res) => {
+    const { studentEmail, code, level } = req.body;
+
+    try {
+        // Check if teacher is logged in and is a teacher
+        if (!req.session.user_id) {
+            return res.status(401).json({ success: false, message: "Unauthorized" });
+        }
+        const teacher = await User.findById(req.session.user_id);
+        if (!teacher || teacher.role !== "teacher") {
+            return res.status(403).json({ success: false, message: "Access denied" });
+        }
+
+        // Sanitize code to uppercase alphanumeric only
+        const sanitizedCode = String(code || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        // Sanitize level to integer
+        const sanitizedLevel = parseInt(level, 10);
+
+        if (!sanitizedCode || isNaN(sanitizedLevel)) {
+            return res.status(400).json({ success: false, message: "Invalid code or level" });
+        }
+
+        // Find the student
+        const student = await User.findOne({ email: studentEmail });
+        if (!student) return res.status(404).json({ success: false, message: "Student not found" });
+
+        if (student.currentCode && student.currentCode.level === sanitizedLevel) {
+            return res.json({ success: false, message: "Code for this level already assigned" });
+        }
+
+        // Assign the sanitized code and level to the student's currentCode
+        student.currentCode = { code: sanitizedCode, level: sanitizedLevel };
+        await student.save();
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
+// Students submit a code for their current level
+app.post("/api/submit-code", async (req, res) => {
+    let { submittedCode } = req.body;
+
+    // Check if student is logged in
+    if (!req.session.user_id) {
+        return res.status(401).json({ success: false, message: "You are not signed in!" });
+    }
+
+    try {
+        const student = await User.findById(req.session.user_id);
+        if (!student || student.role !== "student") {
+            return res.status(403).json({ success: false, message: "Unauthorized access!" });
+        }
+
+        // Sanitize submittedCode to uppercase alphanumeric only
+        submittedCode = String(submittedCode || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+        if (!student.currentCode || !student.currentCode.code || !student.currentCode.level) {
+            return res.json({ success: false, message: "No valid code assigned" });
+        }
+
+        // Determine current level from progress length
+        const sanitizedLevel = (student.progress?.length || 0) + 1;
+
+        if (
+            student.currentCode.code !== submittedCode ||
+            Number(student.currentCode.level) !== sanitizedLevel
+        ) {
+            return res.json({ success: false, message: "Invalid code!" });
+        }
+
+        // Ensure progress is numeric, single-use, and sorted
+        if (!student.progress.includes(sanitizedLevel)) {
+            student.progress.push(sanitizedLevel);
+            student.points += 10; // Or adjust points as needed
+            student.progress = Array.from(new Set(student.progress)).sort((a, b) => a - b);
+        }
+
+        // Reset currentCode after use (single-use)
+        student.currentCode = undefined;
+
+        // Optional: log submission for debugging
+        console.log(`Student ${student.email} submitted code for level ${sanitizedLevel}: ${submittedCode}`);
+
+        await student.save();
+        res.json({ success: true, points: student.points, progress: student.progress });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 

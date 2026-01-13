@@ -37,7 +37,7 @@ function renderGrid() {
         
         codeWrapper.innerHTML = `
             <span class="code">${codeObj.text}</span>
-            ${!codeObj.used ? `<button class="use-btn" onclick="handleUse(${index})">USE</button>` : ''}
+            ${!codeObj.used ? `<button class="use-btn" onclick="handleTeacherSelect(${index})">USE</button>` : ''}
         `;
         grid.appendChild(codeWrapper);
     });
@@ -56,7 +56,33 @@ function handleUse(index) {
     }, 600); 
 }
 
+function handleTeacherSelect(index) {
+    const codeObj = activeCodes[index];
+    const studentEmail = prompt("Enter student email to assign this code:"); // For testing
+    if (!studentEmail) return;
+    let studentCurrentLevel = prompt("Enter student's current level:"); // For testing
+    studentCurrentLevel = Number(studentCurrentLevel);
 
+    // Sanitize code: uppercase + alphanumeric only
+    const sanitizedCode = codeObj.text.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+    fetch("/api/apply-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentEmail, code: sanitizedCode, level: studentCurrentLevel })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Code ${codeObj.text} assigned to ${studentEmail}`);
+            activeCodes[index].used = true;
+            renderGrid();
+        } else {
+            alert(data.message || "Failed to assign code");
+        }
+    })
+    .catch(err => console.error(err));
+}
 
 function showMessage(text, autoHide = true) {
     if (!speechBubble) return;
