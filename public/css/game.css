@@ -49,8 +49,8 @@ header {
 /* Node logic: Defines the layer (z-index) and clickable area for level icons */
 .node {
     position: absolute;
-    width: 120px;
-    height: 130px;
+    width: 90px;
+    height: 100px;
     background: none;
     border: none;
     cursor: pointer;
