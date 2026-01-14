@@ -5,13 +5,13 @@ const imgLock = "images/levellock1.png";
 const totalLevels = 7;
 
 const levelData = {
-    1: { title: "MISSION 1", text: "ASK TEACHER FOR THE FIRST CODE", points: 10 },
-    2: { title: "MISSION 2", text: "ASK TEACHER ......... FOR ONE STUDY TIP!", points: 10 },
-    3: { title: "MISSION 3", text: "FIND THE TEACHER NEAR THE LIBRARY", points: 10 },
-    4: { title: "MISSION 4", text: "GET THE CODE FROM YOUR MATH TEACHER", points: 10 },
-    5: { title: "MISSION 5", text: "ASK FOR A CODE IN THE CAFETERIA", points: 10 },
-    6: { title: "MISSION 6", text: "SECRET CODE MISSION", points: 10 },
-    7: { title: "FINAL MISSION", text: "THE LAST CODE TO WIN THE GAME", points: 20 }
+    1: { title: "MISSION 1", text: "Go to teacher and name the 3 most use app on your phone ", points: 10 },
+    2: { title: "MISSION 2", text: "Answer a question of the day?", points: 10 },
+    3: { title: "MISSION 3", text: "Solve a riddle", points: 10 },
+    4: { title: "MISSION 4", text: "Answer a question of the day?", points: 10 },
+    5: { title: "MISSION 5", text: "Guess the most use key on the keyboard ", points: 10 },
+    6: { title: "MISSION 6", text: "Guess what the purple in the Fontys logo stand for", points: 10 },
+    7: { title: "FINAL MISSION", text: "When or Who was the first human in space", points: 20 }
 };
 
 const gameData = document.getElementById("game-data");
