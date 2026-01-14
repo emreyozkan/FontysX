@@ -87,7 +87,7 @@ window.addEventListener('load', () => {
 
 
     if (speechBubble) {
-        showMessage("Hi, I'm Exie! Are you ready for your challenge? Click me to start ! 🛸", false);
+        showMessage("Hi, I'm Exie! Here you can see all students score! 🛸", false);
     }
 
     if (ufoImage && speechBubble) {
