@@ -60,11 +60,13 @@ window.addEventListener('load', () => {
         "Wait... is this planet Earth or a giant video game? 🎮",
         "I traveled 5 million light years just to see your website! ✨",
         "Exie to base: The humans are clicking me again! 🛸",
-        "Error 404: Exie's brain not found. Too much stardust! 🌟",
-        "Is it true you guys have something called 'pizza'? Take me to it! 🍕",
-        "I’m not short, I’m just from a high-gravity planet! 🪐",
-        "Earth is cool, but the WiFi in the Milky Way is faster. 📶",
-        "Stop clicking! You're tickling my sensors! 😂"
+        "Punch it! We're breaking the sound barrier!",
+        "You're moving so fast, you're leaving a trail of stardust.",
+        "Maximum overdrive engaged! Look at those numbers climb.",
+        "Your momentum is undeniable. Next stop: The Moon!",
+        "Warp speed ahead! Nothing can stop you now.",
+        "Engaging hyperdrive! Prepare for an interstellar journey.",
+        "You’re entering the stratosphere! Keep pushing to win.🛸",
     ];
 
     let autoTalkInterval;
@@ -87,7 +89,7 @@ window.addEventListener('load', () => {
 
 
     if (speechBubble) {
-        showMessage("Hi, I'm Exie! Here you can see all students score! 🛸", false);
+        showMessage("🛸Keep pushing to win, your points will influence your grade!🛸", false);
     }
 
     if (ufoImage && speechBubble) {

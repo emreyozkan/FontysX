@@ -46,7 +46,7 @@ window.addEventListener('load', () => {
 
 
     if (speechBubble) {
-        showMessage("🛸Keep pushing to win, your points will influence your grade!🛸", false);
+        showMessage("Hi, I'm Exie! Here you can see all students score! 🛸", false);
     }
 
     if (ufoImage && speechBubble) {
