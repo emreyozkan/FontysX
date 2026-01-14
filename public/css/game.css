@@ -50,7 +50,7 @@ header {
 .node {
     position: absolute;
     width: 120px;
-    height: 100px;
+    height: 130px;
     background: none;
     border: none;
     cursor: pointer;
