@@ -1,4 +1,4 @@
-const imgDone = "images/check.png";
+const imgDone = "images/checkB.png";
 const imgOpen = "images/levelopen2.png";
 const imgLock = "images/levellock1.png";
 
