@@ -24,6 +24,7 @@ window.addEventListener('load', () => {
         "Your momentum is undeniable. Next stop: The Moon!",
         "Warp speed ahead! Nothing can stop you now.",
         "Engaging hyperdrive! Prepare for an interstellar journey.",
+        "You’re entering the stratosphere! Keep pushing to win.🛸",
     ];
 
     let autoTalkInterval;
@@ -45,7 +46,7 @@ window.addEventListener('load', () => {
 
 
     if (speechBubble) {
-        showMessage("You’re entering the stratosphere! Keep pushing to win.🛸", false);
+        showMessage("🛸Keep pushing to win, your points will influence your grade!🛸", false);
     }
 
     if (ufoImage && speechBubble) {
