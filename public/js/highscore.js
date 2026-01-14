@@ -1,0 +1,72 @@
+
+function closeModal() {
+    document.getElementById('modalOverlay').style.display = 'none';
+}
+
+window.addEventListener('resize', drawLines);
+updateMap();
+
+
+
+window.addEventListener('load', () => {
+    const ufoImage = document.getElementById('ufo-alien');
+    const speechBubble = document.getElementById('speech-bubble');
+
+    const messages = [
+        "Greetings, earthling! 👽",
+        "Is there any space pizza here? 🍕",
+        "Your website looks out of this world! ✨",
+        "I come in peace! (mostly) ✌️",
+        "System check: All green! 🟢",
+        "Hi, I'm Exie! Do you have any space snacks? 🍪",
+        "Wait... is this planet Earth or a giant video game? 🎮",
+        "I traveled 5 million light years just to see your website! ✨",
+        "Exie to base: The humans are clicking me again! 🛸",
+        "Error 404: Exie's brain not found. Too much stardust! 🌟",
+        "Is it true you guys have something called 'pizza'? Take me to it! 🍕",
+        "I’m not short, I’m just from a high-gravity planet! 🪐",
+        "Earth is cool, but the WiFi in the Milky Way is faster. 📶",
+        "Stop clicking! You're tickling my sensors! 😂"
+    ];
+
+    let autoTalkInterval;
+    let firstClickDone = false; 
+  
+    function showMessage(text, autoHide = true) {
+        speechBubble.innerText = text || messages[Math.floor(Math.random() * messages.length)];
+        speechBubble.classList.add('show');
+
+        if (window.bubbleTimeout) clearTimeout(window.bubbleTimeout);
+
+       
+        if (autoHide) {
+            window.bubbleTimeout = setTimeout(() => {
+                speechBubble.classList.remove('show');
+            }, 5000);
+        }
+    }
+
+
+    if (speechBubble) {
+        showMessage("Hi, I'm Exie! Are you ready for your challenge? Click me to start ! 🛸", false);
+    }
+
+    if (ufoImage && speechBubble) {
+        ufoImage.addEventListener('click', () => {
+            
+            
+            if (!firstClickDone) {
+                firstClickDone = true;
+                console.log("Mission started by first click!");
+                
+               
+                autoTalkInterval = setInterval(() => {
+                    showMessage(); 
+                }, 15000);
+            }
+
+           
+            showMessage();
+        });
+    }
+});
