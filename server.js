@@ -62,33 +62,31 @@ app.get("/code", (req, res) => {
 app.post("/register", async (req, res) => {
     const { fullname, email, password, confirmPassword } = req.body;
 
+    // Check passwords
     if (password !== confirmPassword) {
-        return res.status(400).send("Passwords do not match");
+        return res.status(400).json({ success: false, message: "Passwords do not match" });
     }
 
     try {
         const role = email.endsWith("@fontys.nl") ? "teacher" : "student";
         const hash = await bcrypt.hash(password, 12);
-        const user = new User({
-            fullname,
-            email,
-            password: hash,
-            role
-        });
+        const user = new User({ fullname, email, password: hash, role });
         await user.save();
 
         req.session.user_id = user._id;
         req.session.fullname = user.fullname;
         req.session.role = user.role;
-        if (user.role === "teacher") {
-            return res.redirect("/teacher");
-        }
-        res.redirect("/game");
+
+        // SUCCESS: Send JSON with redirect link
+        const redirectUrl = user.role === "teacher" ? "/teacher" : "/game";
+        return res.json({ success: true, redirectUrl: redirectUrl });
+
     } catch (err) {
+        // DUPLICATE EMAIL: Send JSON instead of .send()
         if (err.code === 11000) {
-            return res.status(400).send("Email already registered");
+            return res.status(400).json({ success: false, message: "Email already registered" });
         }
-        res.status(500).send(err.message);
+        return res.status(500).json({ success: false, message: "Server error" });
     }
 });
 

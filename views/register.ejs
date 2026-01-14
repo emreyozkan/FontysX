@@ -13,9 +13,13 @@
     <img src="/images/logov3.PNG" alt="Logo">
   </a>
 
-  <form class="glass-login-box" action="/register" method="POST">
+  <form class="glass-login-box" id="registerForm"> 
     <h2>Create Account</h2>
     <p>Join us today! It only takes a minute.</p>
+
+    <div id="error-message" style="color: #ff4d4d; font-size: 0.9rem; margin-bottom: 15px; display: none; text-align: center; font-weight: bold;">
+        Email already exists.
+    </div>
 
     <div class="input-group">
       <label for="fullname">Full Name</label>
@@ -34,7 +38,7 @@
 
     <div class="input-group">
       <label for="confirm-password">Confirm Password</label>
-      <input type="password" id="confirm-password" name="confirmPassword" placeholder="••••••••" required>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required>
     </div>
 
     <button type="submit" class="login-btn">Sign Up</button>
@@ -45,5 +49,7 @@
     </div>
   </form>
 </div>
+
+<script src="/js/register.js"></script>
 </body>
 </html>
