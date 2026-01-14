@@ -223,7 +223,7 @@ window.addEventListener('load', () => {
 
 
     if (speechBubble) {
-        showMessage("Hi, I'm Exie! Are you ready for your challenge? Click me to start ! 🛸", false);
+        showMessage("Hi, I'm Exie! Are you ready for your challenge? Click on the start button! 🛸", false);
     }
 
     if (ufoImage && speechBubble) {
