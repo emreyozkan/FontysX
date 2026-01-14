@@ -114,7 +114,7 @@ window.addEventListener('load', () => {
 
 
     setTimeout(() => {
-        showMessage("Hi, I'm Exie! Here are some codes for students that you can use! 🛸", false);
+        showMessage("Here are some codes for students that you can use! 🛸", false);
     }, 500);
 
    
