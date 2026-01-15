@@ -12,7 +12,21 @@
   top: 0;
   z-index: 1000;
 }
+.video-container {
+  display: flex;
+  justify-content: center; /* This centers it horizontally */
+  align-items: center;
+  padding: 40px 20px;     /* Gives it some breathing room */
+  width: 100%;
+}
 
+.video-container iframe {
+  width: 100%;
+  max-width: 1000px;      /* Prevents the video from becoming giant on huge monitors */
+  aspect-ratio: 16 / 9;   /* Keeps the standard YouTube shape */
+  border-radius: 12px;    /* Optional: Makes the corners look modern */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Optional: Makes it pop */
+}
 .header-container {
   max-width: 95%;
   margin: 0 auto;
